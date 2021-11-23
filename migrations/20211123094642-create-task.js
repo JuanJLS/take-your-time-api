@@ -10,7 +10,17 @@ module.exports = {
       },
       name: {
         allowNull: false,
-        type: Sequelize.SRING
+        type: Sequelize.STRING
+      },
+      projectId: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'Projects'
+          },
+          key: 'id'
+        }
       },
       createdAt: {
         allowNull: false,
@@ -21,10 +31,10 @@ module.exports = {
         type: Sequelize.DATE
       }
     })
-    await queryInterface.bulkInsert('task', [
-      { name: 'development', createdAt: new Date(), updatedAt: new Date() },
-      { name: 'code revision', createdAt: new Date(), updatedAt: new Date() },
-      { name: 'fixing issues', createdAt: new Date(), updatedAt: new Date() }
+    await queryInterface.bulkInsert('Tasks', [
+      { name: 'development', projectId: 1, createdAt: new Date(), updatedAt: new Date() },
+      { name: 'code revision', projectId: 1, createdAt: new Date(), updatedAt: new Date() },
+      { name: 'fixing issues', projectId: 2, createdAt: new Date(), updatedAt: new Date() }
     ])
   },
   down: async (queryInterface, Sequelize) => {

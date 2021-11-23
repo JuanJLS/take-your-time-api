@@ -9,9 +9,9 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate (user) {
+    static associate (models) {
       // define association here
-      // Task.belongsToMany(user, { through: 'UserTask' })
+      Task.belongsTo(models.User, { foreignKey: 'projectId' })
     }
   };
   Task.init({
@@ -20,11 +20,14 @@ module.exports = (sequelize, DataTypes) => {
       name: DataTypes.STRING,
       allowNull: false,
       primaryKey: true
-
     },
-    project_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+    name: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
+    projectId: {
+      allowNull: false,
+      type: DataTypes.INTEGER
     }
   }, {
     sequelize,
