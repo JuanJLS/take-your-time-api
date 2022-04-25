@@ -2,7 +2,24 @@
 
 const { Project, Task } = require('../models')
 
-async function index (req, res) {
+async function show(req, res) {
+  const id = req.params.id;
+
+  const project = await Project.findOne({
+    where: {
+      id
+    },
+    include: [
+      {
+        model: Task
+      }
+    ]
+  })
+
+  res.status(200).send(project)
+}
+
+async function index(req, res) {
   const projects = await Project.findAll({
     include: [
       {
@@ -14,5 +31,6 @@ async function index (req, res) {
 }
 
 module.exports = {
+  show,
   index
 }
