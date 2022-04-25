@@ -14,7 +14,7 @@ module.exports = {
     host: process.env.DB_HOST,
     port: process.env.DB_PORT || 3306,
     dialect: 'mysql',
-    logging: true
+    logging: false
   },
   test: {
     username: process.env.DB_USER,
