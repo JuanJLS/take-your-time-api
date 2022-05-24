@@ -12,7 +12,7 @@ async function login(req, res) {
     })
 
     if (email && password && user) {
-        res.status(200).json({token: user.token})
+        res.status(200).json({token: user.token, user})
     } else {
         res.status(401).send()
     }

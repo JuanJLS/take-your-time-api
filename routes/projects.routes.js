@@ -7,5 +7,7 @@ const projectsController = require('../controllers/projects.controller')
 
 router.get('/:id', projectsController.show)
 router.get('/', projectsController.index)
+router.patch('/:id', projectsController.update)
+router.delete('/:id', projectsController.remove)
 
 module.exports = router

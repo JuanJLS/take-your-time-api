@@ -30,7 +30,37 @@ async function index(req, res) {
   res.status(200).send(projects)
 }
 
+async function update(req, res) {
+  const fieldsToUpdate = req.body;
+  const projectId = req.params.id;
+  const projects = await Project.update(
+    {
+      fieldsToUpdate
+    },
+    {
+      where: {
+        projectId
+      }
+    }
+  )
+  res.status(200).send(projects)
+}
+
+async function remove(req, res) {
+  const projectId = req.params.id;
+  const projects = await Project.destroy(
+    {
+      where: {
+        projectId
+      }
+    }
+  )
+  res.status(200).send(projects)
+}
+
 module.exports = {
   show,
-  index
+  index,
+  update,
+  remove
 }
