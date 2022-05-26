@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize')
 module.exports = (sequelize, DataTypes) => {
-  class Task extends Model {
+  class WorkTime extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,30 +11,42 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate (models) {
       // define association here
-      Task.belongsTo(models.Project, { foreignKey: 'projectId' })
-      Task.hasMany(models.WorkTime, { foreignKey: 'taskId' })
+      WorkTime.belongsTo(models.Task, { foreignKey: 'taskId' })
+      WorkTime.belongsTo(models.User, { foreignKey: 'userId' })
     }
   };
-  Task.init({
+  WorkTime.init({
     id: {
       type: DataTypes.INTEGER,
       name: DataTypes.STRING,
       allowNull: false,
       primaryKey: true
     },
-    name: {
-      allowNull: false,
-      type: DataTypes.STRING
-    },
-    projectId: {
+    taskId: {
       allowNull: false,
       type: DataTypes.INTEGER
-    }
+    },
+    userId: {
+      allowNull: false,
+      type: DataTypes.INTEGER
+    },
+    startedAt: {
+      allowNull: false,
+      type: DataTypes.DATE
+    },
+    endAt: {
+      allowNull: false,
+      type: DataTypes.DATE
+    },
+    totalTime: {
+      type: DataTypes.DECIMAL
+    },
   }, {
     sequelize,
-    modelName: 'Task',
-    tableName: 'Tasks',
-    timestamps: true
+    modelName: 'WorkTime',
+    tableName: 'WorkTimes',
+    timestamps: true,
+    updatedAt: false
   })
-  return Task
+  return WorkTime
 }

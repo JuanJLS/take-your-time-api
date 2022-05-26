@@ -1,6 +1,6 @@
 'use strict'
 
-const { Project, Task } = require('../models')
+const { Project, Task, sequelize } = require('../models')
 
 async function show(req, res) {
   const id = req.params.id;
@@ -28,6 +28,21 @@ async function index(req, res) {
     ]
   })
   res.status(200).send(projects)
+}
+
+async function create(req, res) {
+  const t = await sequelize.transaction();
+  try {
+      const { name } = req.body;
+      await Project.create({
+          name
+      }, { transaction: t });
+      await t.commit();
+      res.status(200).send();
+
+  } catch (error) {
+      await t.rollback();
+  }
 }
 
 async function update(req, res) {
@@ -61,6 +76,7 @@ async function remove(req, res) {
 module.exports = {
   show,
   index,
+  create,
   update,
   remove
 }

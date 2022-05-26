@@ -1,18 +1,26 @@
 'use strict'
 
-const { User, sequelize } = require('../models')
+const { User, WorkTime, sequelize } = require('../models')
 
 async function index(req, res) {
-    const users = await User.findAll({
-    })
+    const users = await User.findAll()
     res.status(200).send(users)
 }
 
 async function show(req, res) {
     const id = req.params.id;
 
+    if (id !== req.currentUser.id && !req.currentUser.admin) {
+        return res.status(401).send();
+    }
+
     const user = await User.findOne({
         where: { id } = id,
+        include: [
+            {
+                model: WorkTime
+            }
+        ]
     })
     res.status(200).send(user);
 }
@@ -33,7 +41,6 @@ async function create(req, res) {
         res.status(200).send();
 
     } catch (error) {
-        console.log('This is the error: ' + error);
         await t.rollback();
     }
 }
