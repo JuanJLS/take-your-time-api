@@ -15,7 +15,7 @@ async function show(req, res) {
     }
 
     const user = await User.findOne({
-        where: { id } = id,
+        where: { id },
         include: [
             {
                 model: WorkTime
