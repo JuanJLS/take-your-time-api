@@ -12,10 +12,11 @@ async function index(req, res) {
   })
   res.status(200).send(tasks)
 }
+
 async function findTaskByPk(req, res) {
-    const task = await Task.findByPk(req.params.id);
-    res.status(200).send(task);
-  }
+  const task = await Task.findByPk(req.params.id);
+  res.status(200).send(task);
+}
 
 async function create(req, res) {
   const t = await sequelize.transaction();

@@ -33,44 +33,40 @@ async function index(req, res) {
 async function create(req, res) {
   const t = await sequelize.transaction();
   try {
-      const { name } = req.body;
-      await Project.create({
-          name
-      }, { transaction: t });
-      await t.commit();
-      res.status(200).send();
+    const { name } = req.body;
+    await Project.create({
+      name
+    }, { transaction: t });
+    await t.commit();
+    res.status(200).send();
 
   } catch (error) {
-      await t.rollback();
+    await t.rollback();
   }
 }
 
 async function update(req, res) {
   const fieldsToUpdate = req.body;
-  const projectId = req.params.id;
+  const projectId = +req.params.id;
   const projects = await Project.update(
     {
-      fieldsToUpdate
+      ...fieldsToUpdate
     },
     {
-      where: {
-        projectId
-      }
+      where: { id: projectId }
     }
   )
   res.status(200).send(projects)
 }
 
 async function remove(req, res) {
-  const projectId = req.params.id;
-  const projects = await Project.destroy(
+  const id = +req.params.id;
+  const response = await Project.destroy(
     {
-      where: {
-        projectId
-      }
+      where: { id: id }
     }
   )
-  res.status(200).send(projects)
+  res.status(200).send(response)
 }
 
 module.exports = {

@@ -44,6 +44,19 @@ async function create(req, res) {
         await t.rollback();
     }
 }
+async function update(req, res) {
+    const fieldsToUpdate = req.body;
+    const userId = +req.params.id;
+    const user = await User.update(
+      {
+        ...fieldsToUpdate
+      },
+      {
+        where: { id: userId }
+      }
+    )
+    res.status(200).send(user)
+  }
 
 async function getCurrentUser(req, res) {
     res.status(200).send(req.currentUser);
@@ -53,5 +66,6 @@ module.exports = {
     index,
     show,
     create,
+    update,
     getCurrentUser
 }
