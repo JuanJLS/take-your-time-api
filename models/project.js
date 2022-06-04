@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Project.hasMany(models.Task, { foreignKey: 'projectId' })
+      Project.hasMany(models.Task, { foreignKey: 'projectId'} )
     }
   };
   Project.init({
@@ -37,7 +37,9 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Project',
     tableName: 'Projects',
-    timestamp: true
+    timestamp: true,
+    //crear una nueva columna y que indique si está borrado o no y se tiene en cuenta esa columna para las select
+    //paranoid: true
   })
   return Project
 }

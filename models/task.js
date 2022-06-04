@@ -30,6 +30,10 @@ module.exports = (sequelize, DataTypes) => {
     projectId: {
       allowNull: false,
       type: DataTypes.INTEGER
+    },
+    status: {
+      type: DataTypes.STRING,
+      allowNull: true
     }
   }, {
     sequelize,

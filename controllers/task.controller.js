@@ -1,12 +1,12 @@
 'use strict'
 
-const { Task, Worktime, sequelize } = require('../models')
+const { Task, WorkTime, sequelize } = require('../models')
 
 async function index(req, res) {
   const tasks = await Task.findAll({
     include: [
       {
-        model: Worktime
+        model: WorkTime
       }
     ]
   })
@@ -21,10 +21,11 @@ async function findTaskByPk(req, res) {
 async function create(req, res) {
   const t = await sequelize.transaction();
   try {
-    const { name, projectId } = req.body;
+    const { name, projectId, status } = req.body;
     await Task.create({
       name,
       projectId,
+      status
     }, { transaction: t });
     await t.commit();
     res.status(200).send();

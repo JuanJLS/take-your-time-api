@@ -31,7 +31,12 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      }
+      },
+      // deletedAt: {
+      //   allowNull: true,
+      //   type: Sequelize.DATE
+      // }
+
     })
     await queryInterface.bulkInsert('users', [
       { firstName: 'Jose', createdAt: new Date(), updatedAt: new Date(), email: 'jose@mail.com', admin: false },
