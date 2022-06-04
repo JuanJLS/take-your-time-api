@@ -63,10 +63,10 @@ async function remove(req, res) {
   const id = +req.params.id;
   const response = await Project.destroy(
     {
-      where: { id: id }
+      where: { id }
     }
   )
-  res.status(200).send(response)
+  res.status(200).send()
 }
 
 module.exports = {

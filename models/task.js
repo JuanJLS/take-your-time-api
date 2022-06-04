@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Task.belongsTo(models.Project, { foreignKey: 'projectId' })
+      Task.belongsTo(models.Project, { foreignKey: 'projectId', onDelete: 'CASCADE', onUpdate: 'CASCADE'  })
       Task.hasMany(models.WorkTime, { foreignKey: 'taskId' })
     }
   };
